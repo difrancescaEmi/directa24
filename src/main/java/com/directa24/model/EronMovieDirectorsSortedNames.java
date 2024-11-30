@@ -10,7 +10,11 @@ import java.util.List;
  *
  */
 public class EronMovieDirectorsSortedNames {
-
+	
+	public EronMovieDirectorsSortedNames(List<String> directors) {
+		super();
+		this.directors = directors;
+	}
 	private List<String> directors;
 
 	public List<String> getDirectors() {

@@ -78,10 +78,17 @@ The solution can be shared via .zip file or sharing a github repository url via 
 best practices?
 - Describe on Readme.md if any improvement was left out and why
 
+-------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
 
-##############################################################
+### LIMITATIONS
 
-JSON RESPONSE
+- The only limitation comes from the external API, not allowing you to get all data at once or
+you are not able to specify the amount of data you want to retrieve, by the input "size"
+(in this particular case that you know, it only has 26 objects) This point, will reduce the amount of calls.
+
+### LOCAL MACHINE JSON RESPONSES
 
 Emi@DESKTOP-676JNL8 MINGW64 ~
 $ curl --location 'localhost:8080/api/directors?threshold=4'

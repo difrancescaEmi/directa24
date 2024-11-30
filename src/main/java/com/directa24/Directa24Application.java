@@ -9,5 +9,4 @@ public class Directa24Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Directa24Application.class, args);
 	}
-
 }

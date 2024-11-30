@@ -3,7 +3,7 @@
  */
 package com.directa24.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Emi
@@ -11,23 +11,23 @@ import com.google.gson.annotations.SerializedName;
  */
 public class EronMoviesData {
 
-	@SerializedName("Title")
+	@JsonProperty("Title")
 	private String title;
-	@SerializedName("Year")
+	@JsonProperty("Year")
 	private String year;
-	@SerializedName("Rated")
+	@JsonProperty("Rated")
 	private String rated;
-	@SerializedName("Released")
+	@JsonProperty("Released")
 	private String released;
-	@SerializedName("Runtime")
+	@JsonProperty("Runtime")
 	private String runtime;
-	@SerializedName("Genre")
+	@JsonProperty("Genre")
 	private String genre;
-	@SerializedName("Director")
+	@JsonProperty("Director")
 	private String director;
-	@SerializedName("Writer")
+	@JsonProperty("Writer")
 	private String writer;
-	@SerializedName("Actors")
+	@JsonProperty("Actors")
 	private String actors;
 	
 	public String getTitle() {

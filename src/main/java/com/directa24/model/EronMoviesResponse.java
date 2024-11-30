@@ -5,7 +5,7 @@ package com.directa24.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Emi
@@ -13,37 +13,37 @@ import com.google.gson.annotations.SerializedName;
  */
 public class EronMoviesResponse {
 
-	private int page;
-	@SerializedName("per_page")
-	private int perPage;
-	private int total;
-	@SerializedName("total_pages")
-	private int totalPages;
-	@SerializedName("data")
+	private Long page;
+	@JsonProperty("per_page")
+	private Long perPage;
+	private Long total;
+	@JsonProperty("total_pages")
+	private Long totalPages;
+	@JsonProperty("data")
 	private List<EronMoviesData> lstEronMoviesData;
 	
-	public int getPage() {
+	public Long getPage() {
 		return page;
 	}
-	public void setPage(int page) {
+	public void setPage(Long page) {
 		this.page = page;
 	}
-	public int getPerPage() {
+	public Long getPerPage() {
 		return perPage;
 	}
-	public void setPerPage(int perPage) {
+	public void setPerPage(Long perPage) {
 		this.perPage = perPage;
 	}
-	public int getTotal() {
+	public Long getTotal() {
 		return total;
 	}
-	public void setTotal(int total) {
+	public void setTotal(Long total) {
 		this.total = total;
 	}
-	public int getTotalPages() {
+	public Long getTotalPages() {
 		return totalPages;
 	}
-	public void setTotalPages(int totalPages) {
+	public void setTotalPages(Long totalPages) {
 		this.totalPages = totalPages;
 	}
 	public List<EronMoviesData> getLstEronMoviesData() {
