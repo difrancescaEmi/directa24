@@ -82,6 +82,11 @@ best practices?
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 
+### BEFORE START
+
+- Make sure you add the environment variable with key "eron.movies.url" and value "https://eron-movies.wiremockapi.cloud/api/movies/search?page="
+  (both without quotes)
+
 ### LIMITATIONS
 
 - The only limitation comes from the external API, not allowing you to get all data at once or

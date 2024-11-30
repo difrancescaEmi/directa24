@@ -4,26 +4,24 @@
 package com.directa24.service.impl;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.directa24.model.EronMovieDirectorsSortedNames;
 import com.directa24.model.EronMoviesData;
 import com.directa24.model.EronMoviesResponse;
 import com.directa24.service.EronMoviesService;
+import com.directa24.service.RestUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Emi
@@ -32,10 +30,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component("eronMoviesService")
 public class EronMoviesServiceImpl implements EronMoviesService {
 	
+	@Autowired
+	private RestUtils restUtils;
+	
 	public String getDirectorsNamesWithMoreMoviesThanThreshold(int threshold) throws JsonProcessingException {
 		
-		List<String> lstDirectors = new ArrayList<String>();
 		Iterator<List<EronMoviesData>> eronMoviesDataIterator = fetchAllMovies();
+		List<String> lstDirectors = new ArrayList<String>();
 		
 		while(eronMoviesDataIterator.hasNext())
 			lstDirectors.addAll(eronMoviesDataIterator.next().stream()
@@ -54,14 +55,14 @@ public class EronMoviesServiceImpl implements EronMoviesService {
 	                                    .collect(Collectors.toList());
 
 		lstDirectors.sort(Comparator.comparing(o -> o));
-		return new ObjectMapper().writeValueAsString(new EronMovieDirectorsSortedNames(lstDirectors));
+		return getRestUtils().getObjectMapper().writeValueAsString(new EronMovieDirectorsSortedNames(lstDirectors));
 	}
 	
 	public Iterator<List<EronMoviesData>> fetchAllMovies() {
 		
 	    return new ResponseIterator();
 	}
-	
+
 	public class ResponseIterator implements Iterator<List<EronMoviesData>> {
 
 	    private Long nextPage;
@@ -113,28 +114,12 @@ public class EronMoviesServiceImpl implements EronMoviesService {
 
 	public EronMoviesResponse fetchMoviesByPage(Long page) throws IOException{
 		
-		ObjectMapper objectMapper = new ObjectMapper();
-	    EronMoviesResponse eronMoviesResponse;
-	    URL url = new URL(System.getenv("eron.movies.url") + page.toString());
-	    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	    conn.setRequestMethod("GET");
-	    conn.connect();
-	    int responseCode = conn.getResponseCode();
-	    
-	    if (responseCode != 200)
-	      throw new RuntimeException("HttpResponseCode: " + responseCode);
-	    else {
-	      
-	      Scanner sc = new Scanner(url.openStream());
-	      StringBuilder inline = new StringBuilder();
-	      
-	      while(sc.hasNext())
-	        inline.append(sc.nextLine());
-	      
-	      eronMoviesResponse = objectMapper.readValue(inline.toString(), EronMoviesResponse.class);
-	      sc.close();
-	    }
-	    
-	    return eronMoviesResponse;
+		return getRestUtils().getObjectMapper().readValue(getRestUtils().getResponse(System.getenv("eron.movies.url") + page.toString()), 
+				                                          EronMoviesResponse.class);
+	}
+	
+	public RestUtils getRestUtils() {
+		
+		return restUtils;
 	}
 }
