@@ -87,6 +87,9 @@ best practices?
 - Make sure you add the environment variable with key "eron.movies.url" and value "https://eron-movies.wiremockapi.cloud/api/movies/search?page="
   (both without quotes)
 
+- RestUtils it's a service utility class, where we instantiate the rest client library and the default
+  springs boot´s json serializer.
+
 ### LIMITATIONS
 
 - The only limitation comes from the external API, not allowing you to get all data at once or
